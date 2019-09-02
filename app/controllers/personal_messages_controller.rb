@@ -1,5 +1,6 @@
 class PersonalMessagesController < ApplicationController
   before_action :find_conversation!
+
   def create
     @conversation ||= Conversation.create(author_id: current_user.id,
                                           receiver_id: @receiver.id)
@@ -10,13 +11,14 @@ class PersonalMessagesController < ApplicationController
     flash[:success] = "Your message was sent!"
     redirect_to conversation_path(@conversation)
   end
+  
   def new
     redirect_to conversation_path(@conversation) and return if @conversation
     @personal_message = current_user.personal_messages.build
   end
 
   def personal_message_params
-    params.require(:personal_message).permit(:body)
+    params.require(:personal_message).permit(:body, :attachment)
   end
 
   private

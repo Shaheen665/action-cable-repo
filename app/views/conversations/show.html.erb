@@ -5,11 +5,22 @@
     <%= render @conversation.personal_messages %>
   </div>
 
-  <%= form_for @personal_message do |f| %>
+  <%= form_for @personal_message, html: { id: "new-message"} do |f| %>
     <%= hidden_field_tag 'conversation_id', @conversation.id %>
     <%= f.label :body %>
     <%= f.text_area :body %>
 
-    <%= f.button %>
-  <% end %>
+    <%= f.file_field :attachment, id: 'message-attachment' %>
+<br>
+<small>Only PNG, JPG and GIF images are allowed</small>
+
+<br>
+<br>
+
+
+
+
+
+<%= f.button %>
+<% end %>
 </div>
